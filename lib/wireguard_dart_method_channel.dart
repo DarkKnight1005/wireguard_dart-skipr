@@ -45,7 +45,7 @@ class MethodChannelWireguardDart extends WireguardDartPlatform {
   }
 
   @override
-  Future<void> disconnect({required String cfg}) async {
+  Future<void> disconnect() async {
     await methodChannel.invokeMethod<void>('disconnect');
   }
 

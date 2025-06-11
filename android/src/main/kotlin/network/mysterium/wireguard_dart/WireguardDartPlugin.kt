@@ -159,7 +159,7 @@ class WireguardDartPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             }
 
             "connect" -> connect(call.argument<String>("cfg").toString(), result)
-            "disconnect" -> disconnect(call.argument<String>("cfg").toString(), result)
+            "disconnect" -> disconnect(result)
             "status" -> status(result)
             "tunnelStatistics" -> statistics(result)
             else -> flutterNotImplemented(result)
@@ -266,7 +266,7 @@ class WireguardDartPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
         }
     }
 
-private fun disconnect(cfg: String, result: Result) {
+private fun disconnect(result: Result) {
     // 1) Make sure tunnel wrapper exists (or rebuild it)
     if (tunnel == null) {
         // If you’ve just restarted the app, you must re-init:
