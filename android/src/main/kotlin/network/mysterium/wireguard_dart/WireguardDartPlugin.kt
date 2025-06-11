@@ -286,13 +286,13 @@ private fun disconnect(cfg: String, result: Result) {
     scope.launch(Dispatchers.IO) {
         try {
             // 3) Parse the fresh config
-            val parsed = com.wireguard.config.Config.parse(
-                ByteArrayInputStream(cfg.toByteArray())
-            )
-            config = parsed
+            // val parsed = com.wireguard.config.Config.parse(
+            //     ByteArrayInputStream(cfg.toByteArray())
+            // )
+            // config = parsed
 
             // 4) Ask the backend to bring it DOWN
-            futureBackend.await().setState(tunnel!!, Tunnel.State.DOWN, parsed)
+            futureBackend.await().setState(tunnel!!, Tunnel.State.DOWN, null)
 
             // 5) Success
             flutterSuccess(result, "")
