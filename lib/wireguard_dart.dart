@@ -23,8 +23,8 @@ class WireguardDart {
     return WireguardDartPlatform.instance.connect(cfg: cfg);
   }
 
-  Future<void> disconnect() {
-    return WireguardDartPlatform.instance.disconnect();
+  Future<void> disconnect({required String cfg}) {
+    return WireguardDartPlatform.instance.disconnect(cfg: cfg);
   }
 
   Future<ConnectionStatus> status() {

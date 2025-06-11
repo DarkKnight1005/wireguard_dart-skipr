@@ -43,7 +43,7 @@ abstract class WireguardDartPlatform extends PlatformInterface {
     throw UnimplementedError('connect() has not been implemented');
   }
 
-  Future<void> disconnect() {
+  Future<void> disconnect({required String cfg}) {
     throw UnimplementedError('disconnect() has not been implemented');
   }
 
