@@ -267,45 +267,32 @@ class WireguardDartPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     }
 
 private fun disconnect(result: Result) {
-    // 1) Make sure tunnel wrapper exists (or rebuild it)
+
     if (tunnel == null) {
-        // If you’ve just restarted the app, you must re-init:
+
         initTunnel(tunnelName ?: run {
             result.error("err_no_tunnel", "Tunnel name is not set", null)
             return
         })
     }
 
-    // 2) And make sure they passed a non-empty config
-    if (cfg.isBlank()) {
-        result.error("err_missing_cfg", "Config string must not be empty", null)
-        return
-    }
-
     status = ConnectionStatus.disconnecting
     scope.launch(Dispatchers.IO) {
         try {
-            // 3) Parse the fresh config
-            // val parsed = com.wireguard.config.Config.parse(
-            //     ByteArrayInputStream(cfg.toByteArray())
-            // )
-            // config = parsed
 
-            // 4) Ask the backend to bring it DOWN
             futureBackend.await().setState(tunnel!!, Tunnel.State.DOWN, null)
 
-            // 5) Success
             flutterSuccess(result, "")
         } catch (e: com.wireguard.android.backend.BackendException) {
-            // This has a .reason field you almost certainly want
+
             Log.e(TAG, "Disconnect - BackendException: ${e.reason}", e)
             status = queryStatus()
             flutterError(result, e.reason.toString())
         } catch (e: Throwable) {
-            // Log the full exception so you can see the cause
+
             Log.e(TAG, "Disconnect - Unexpected error", e)
             status = queryStatus()
-            // Use toString() so at least you get the class name + message
+
             flutterError(result, e.toString())
         }
     }
