@@ -295,12 +295,12 @@ private fun disconnect(cfg: String, result: Result) {
             futureBackend.await().setState(tunnel!!, Tunnel.State.DOWN, parsed)
 
             // 5) Success
-            flutterSuccess(result, null)
+            flutterSuccess(result, "")
         } catch (e: com.wireguard.android.backend.BackendException) {
             // This has a .reason field you almost certainly want
             Log.e(TAG, "Disconnect - BackendException: ${e.reason}", e)
             status = queryStatus()
-            flutterError(result, e.reason)
+            flutterError(result, e.reason.toString())
         } catch (e: Throwable) {
             // Log the full exception so you can see the cause
             Log.e(TAG, "Disconnect - Unexpected error", e)
