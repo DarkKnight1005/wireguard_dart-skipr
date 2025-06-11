@@ -199,7 +199,7 @@ PersistentKeepalive = 25""");
 
   void disconnect() async {
     try {
-      await _wireguardDartPlugin.disconnect();
+      // await _wireguardDartPlugin.disconnect();
       debugPrint("Disconnect success");
       showSnackbar(
         "Disconnect success",

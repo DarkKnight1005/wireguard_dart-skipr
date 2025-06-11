@@ -159,7 +159,7 @@ class WireguardDartPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             }
 
             "connect" -> connect(call.argument<String>("cfg").toString(), result)
-            "disconnect" -> disconnect(result)
+            "disconnect" -> disconnect(call.argument<String>("cfg").toString(), result)
             "status" -> status(result)
             "tunnelStatistics" -> statistics(result)
             else -> flutterNotImplemented(result)
