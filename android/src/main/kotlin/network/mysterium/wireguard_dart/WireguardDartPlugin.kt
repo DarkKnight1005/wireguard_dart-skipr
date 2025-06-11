@@ -178,9 +178,7 @@ class WireguardDartPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     private fun checkTunnelConfiguration(tunnelName: String, result: Result) {
     scope.launch(Dispatchers.IO) {
         try {
-            val isConfigured = futureBackend.await()
-                .getTunnelNames()
-                .contains(tunnelName)
+            val isConfigured = futureBackend.await().runningTunnelNames.contains(tunnelName)
             flutterSuccess(result, isConfigured)
         } catch (e: Throwable) {
             flutterError(result, e.message ?: "error checking configuration")
